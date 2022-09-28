@@ -2,13 +2,13 @@
 #include "crankshaft.hpp"
 
 CCrankshaft::CCrankshaft(edge_cb_t cb, void * cb_arg) {
-  Serial.println("Reset");
   m_edge_cb = cb;
   m_edge_cb_arg = cb_arg;
   reset();
 };
 
 void CCrankshaft::reset() {
+  Serial.println("Reset");
   m_edge_id = -1;
   m_pin_state = -1;
   m_pin_ts = 0;
