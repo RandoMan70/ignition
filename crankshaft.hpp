@@ -1,3 +1,6 @@
+#ifndef IGNITION_CRANKSHAFT_HPP
+#define IGNITION_CRANKSHAFT_HPP
+
 class CCrankshaft {
   typedef void (*edge_cb_t)(int edge_id, unsigned long ts, void * arg);  
   public:
@@ -16,3 +19,5 @@ class CCrankshaft {
     edge_cb_t m_edge_cb;
     void *m_edge_cb_arg;
 };
+
+#endif // IGNITION_CRANKSHAFT_HPP
