@@ -1,15 +1,12 @@
 #include <arduino.h>
 #include "crankshaft.hpp"
 
-CCrankshaft::CCrankshaft() {
+CCrankshaft::CCrankshaft(edge_cb_t cb, void * cb_arg) {
   Serial.println("Reset");
-  m_edge_cb = NULL;
+  m_edge_cb = cb;
+  m_edge_cb_arg = cb_arg;
   reset();
 };
-
-void CCrankshaft::set_edge_cb(edge_cb_t cb) {
-  m_edge_cb = cb;
-}
 
 void CCrankshaft::reset() {
   m_edge_id = -1;
@@ -89,7 +86,7 @@ void CCrankshaft::tick(unsigned long ts, int state) {
   // If it's a gap - initialize segment id and segments count
   if (is_gap()) {
     m_edge_id = 0;
-    if (m_edge_cb != NULL) m_edge_cb(m_edge_id, ts);
+    if (m_edge_cb != NULL) m_edge_cb(m_edge_id, ts, m_edge_cb_arg);
     return;
   }   
 
@@ -100,5 +97,5 @@ void CCrankshaft::tick(unsigned long ts, int state) {
 
   // Having next segment
   m_edge_id += 1;
-  if (m_edge_cb != NULL) m_edge_cb(m_edge_id, ts);
+  if (m_edge_cb != NULL) m_edge_cb(m_edge_id, ts, m_edge_cb_arg);
 }

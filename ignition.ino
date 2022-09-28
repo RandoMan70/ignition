@@ -4,7 +4,7 @@
 const int CRANKSHAFT_PIN = 12;
 CCrankshaft *cshaft;
 
-void edge(int id, unsigned long ts) {
+void edge(int id, unsigned long ts, void * arg) {
   Serial.print("EDGE ");
   Serial.print(id);
   Serial.print(" ");  
@@ -14,9 +14,8 @@ void edge(int id, unsigned long ts) {
 void setup() {
   Serial.begin(115200);
   Serial.println("Started");
-  cshaft = new CCrankshaft;
+  cshaft = new CCrankshaft(edge, NULL);
   pinMode(CRANKSHAFT_PIN, INPUT);
-  cshaft->set_edge_cb(edge);
 }
 
 void loop() {

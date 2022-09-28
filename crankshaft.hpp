@@ -1,9 +1,8 @@
 class CCrankshaft {
-  typedef void (*edge_cb_t)(int edge_id, unsigned long ts);  
+  typedef void (*edge_cb_t)(int edge_id, unsigned long ts, void * arg);  
   public:
-    CCrankshaft();
+    CCrankshaft(edge_cb_t cb, void * cb_arg);
     void tick(unsigned long ts, int state);
-    void set_edge_cb(edge_cb_t cb);
   private:
     void push(unsigned int value);
     void reset();
@@ -15,4 +14,5 @@ class CCrankshaft {
     unsigned long m_pin_ts;
     int m_recent[4];
     edge_cb_t m_edge_cb;
+    void *m_edge_cb_arg;
 };
