@@ -1,4 +1,4 @@
-#include <arduino.h>
+#include <Arduino.h>
 #include "crankshaft.hpp"
 
 CCrankshaft::CCrankshaft(edge_cb_t cb, void * cb_arg) {
